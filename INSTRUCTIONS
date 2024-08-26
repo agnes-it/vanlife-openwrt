@@ -1,0 +1,24 @@
+OBS: tudo isso só é necessário para desenvolvimento por enquanto, o processo oficial deve ser modificar a squashFS ao invés da overlayFS. Para as mudanças serem persistidas após hard reset.
+
+Na primeira configuração o dispositivo deve ter acesso a internet pela porta WAN.
+
+Após conectar ao dispositivo pela Wi-Fi com a senha goodlife, não acesse o painel web.
+
+Rode o comando no Linux, Mac ou WSL no Windows (Esse script irá falhar sem acesso a internet):
+
+$ boot_configuration.sh 192.168.8.1 "vanlife-ef8 :)" ./web.zip
+
+Os argumentos do script são:
+1. o IP default do roteador
+2. o nome da SSID que deseja definir no roteador, lembre-se que após rodar esse comando modificando a SSID, terá de conectar novamente no roteador no seu dispositivo Wi-Fi. Esse ef8 foi obtido do ID do roteador obtido no final do nome default do Wi-Fi, por exemplo: GL-SFT1200-ef8
+3. pasta contendo o zip de modificações da interface web a ser descompactado em /www
+
+Após isso, pode verificar na página web se as mudanças foram efetuadas com sucesso.
+
+`http://192.186.8.1`
+
+Se a primeira página constar as alterações, todas as outras foram feitas com sucesso.
+Lembre-se que se mudar a senha nessa página, não será possível resetar para goodlife, 
+apenas será possível resetando o roteador.
+
+Nada impede de definir uma nova senha, testar e depois resetar e executar o comando novamente.
