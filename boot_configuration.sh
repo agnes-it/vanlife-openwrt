@@ -24,7 +24,7 @@ function ssh_router() {
 
 # Instala o openssh-sftp-server e git no roteador
 echo "Instalando openssh-sftp-server e git no roteador..."
-ssh_router "opkg update && opkg install openssh-sftp-server git"
+ssh_router "opkg update && opkg install openssh-sftp-server git git-http ca-bundle"
 
 # Obtém o SSID atual do roteador
 CURRENT_SSID=$(ssh_router "uci get wireless.@wifi-iface[0].ssid")

@@ -1,31 +1,52 @@
+.clear {
+    clear: both;
+}
+.text-upper {
+    text-transform: uppercase;
+}
+.text-20 {
+    font-size: 20px;
+}
+
+.app, #app {
+    width: 100%;
+    height: 100%;
+}
+
 .welcome-guide {
     background-size: 100%;
-    background: -webkit-radial-gradient(50% 60%, circle, #2d303f, transparent), 
-    -webkit-radial-gradient(50% 80%, circle, #2d303f, transparent), 
-     -webkit-radial-gradient(0 -50%, circle, #287168, transparent), 
-    -webkit-radial-gradient(80% 80%, circle, #067e84, transparent),
-    -webkit-radial-gradient(0% 100%, circle, #109b80, transparent);
+
+    /* Chrome, Safari, iOS */
+    background: -webkit-radial-gradient(50% 60%, circle, #0b2a5d, transparent),
+                -webkit-radial-gradient(50% 80%, circle, #133d70, transparent),
+                -webkit-radial-gradient(0 -50%, circle, #1d517d, transparent),
+                -webkit-radial-gradient(80% 80%, circle, #0f436d, transparent),
+                -webkit-radial-gradient(0% 100%, circle, #23658b, transparent);
+
     /* IE10 */
-    background: -ms-radial-gradient(50% 60%, circle, #2d303f, transparent), 
-      -ms-radial-gradient(50% 80%, circle, #2d303f, transparent), 
-      -ms-radial-gradient(0 -50%, circle, #287168, transparent), 
-      -ms-radial-gradient(80% 80%, circle, #067e84, transparent),
-      -ms-radial-gradient(0% 100%, circle, #109b80, transparent);
-    /* opera */
-    background: -o-radial-gradient(50% 60%, circle, #2d303f, transparent), 
-      -o-radial-gradient(50% 80%, circle, #2d303f, transparent), 
-      -o-radial-gradient(0 -50%, circle, #287168, transparent),
-      -o-radial-gradient(80% 80%, circle, #067e84, transparent), 
-      -o-radial-gradient(0% 100%, circle, #109b80, transparent);
-    /* firefox */
-    background: -moz-radial-gradient(50% 60%, circle, #2d303f, transparent), 
-      -moz-radial-gradient(50% 80%, circle, #2d303f, transparent), 
-      -moz-radial-gradient(0 -50%, circle, #287168, transparent), 
-      -moz-radial-gradient(80% 80%, circle, #067e84, transparent),
-      -moz-radial-gradient(0% 100%, circle, #109b80, transparent);
-      /* IE9 */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2d303f', endColorstr='#287168',GradientType=0);
-    position:absolute;
+    background: -ms-radial-gradient(50% 60%, circle, #0b2a5d, transparent),
+                -ms-radial-gradient(50% 80%, circle, #133d70, transparent),
+                -ms-radial-gradient(0 -50%, circle, #1d517d, transparent),
+                -ms-radial-gradient(80% 80%, circle, #0f436d, transparent),
+                -ms-radial-gradient(0% 100%, circle, #23658b, transparent);
+
+    /* Opera */
+    background: -o-radial-gradient(50% 60%, circle, #0b2a5d, transparent),
+                -o-radial-gradient(50% 80%, circle, #133d70, transparent),
+                -o-radial-gradient(0 -50%, circle, #1d517d, transparent),
+                -o-radial-gradient(80% 80%, circle, #0f436d, transparent),
+                -o-radial-gradient(0% 100%, circle, #23658b, transparent);
+
+    /* Firefox */
+    background: -moz-radial-gradient(50% 60%, circle, #0b2a5d, transparent),
+                -moz-radial-gradient(50% 80%, circle, #133d70, transparent),
+                -moz-radial-gradient(0 -50%, circle, #1d517d, transparent),
+                -moz-radial-gradient(80% 80%, circle, #0f436d, transparent),
+                -moz-radial-gradient(0% 100%, circle, #23658b, transparent);
+
+    /* IE9 (using filter for fallback) */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0b2a5d', endColorstr='#1d517d', GradientType=0);
+
     left:0px;
     right:0px;
     top: 0;
