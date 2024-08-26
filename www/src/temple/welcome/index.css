@@ -13,6 +13,20 @@
     height: 100%;
 }
 
+.starkit-logo {
+    width: 45%;
+}
+
+.vanlife-logo {
+    width: 35%;
+    position: relative;
+    right: 200px;
+    top: 300px;
+}
+
+.clearfix {
+    clear: both;
+}
 .welcome-guide {
     background-size: 100%;
 
