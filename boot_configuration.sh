@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Verifica se o número de argumentos é igual a 3
+# Verifica se o número de argumentos é igual a 2
 if [ "$#" -ne 2 ]; then
     echo "Uso: $0 <IP_do_roteador> <Nome_da_SSID>"
     exit 1
@@ -19,30 +19,40 @@ function ssh_router() {
 echo "Instalando openssh-sftp-server e git no roteador..."
 ssh_router "opkg update && opkg install openssh-sftp-server git git-http ca-bundle"
 
-# Obtém o SSID atual do roteador
-CURRENT_SSID=$(ssh_router "uci get wireless.@wifi-iface[0].ssid")
+# Função para verificar o SSID atual e alterá-lo se necessário
+alterar_ssid() {
+    local INTERFACE=$1
+    local SSID_SUFFIX=$2
 
-if [ "$CURRENT_SSID" == "$SSID_NAME" ]; then
-    echo "SSID já está configurado como '$SSID_NAME'. Pulando a configuração da SSID."
-else
-    # Define a SSID no roteador
-    echo "Definindo o nome da SSID como '$SSID_NAME'..."
-    ssh_router "uci set wireless.@wifi-iface[0].ssid='$SSID_NAME'"
-    ssh_router "uci commit wireless"
-    ssh_router "wifi"
+    SSID_NAME="$SSID_NAME $SSID_SUFFIX"
 
-    # Pausa para reconectar ao roteador após a alteração da SSID
-    echo "Esperando 10 segundos para reconectar ao roteador após alterar a SSID..."
-    sleep 10
+    local SSID_ATUAL=$(ssh root@$IP_ROUTER "uci get wireless.$INTERFACE.ssid")
 
-    # Verifica a conectividade com o roteador
-    ping -c 4 $IP_ROUTER > /dev/null
+    if [ "$SSID_ATUAL" != "$SSID_NAME" ]; then
+        echo "Alterando SSID da interface $INTERFACE de '$SSID_ATUAL' para '$SSID_NAME'"
+        ssh root@$IP_ROUTER "uci set wireless.$INTERFACE.ssid='$SSID_NAME'"
+        ssh root@$IP_ROUTER "uci commit wireless"
+        ssh root@$IP_ROUTER "wifi"
 
-    if [ $? -ne 0 ]; then 
-        echo "Falha ao se reconectar ao roteador. Verifique a conexão Wi-Fi e tente novamente."
-        exit 1
+        # Pausa para reconectar ao roteador após a alteração da SSID
+        echo "Esperando 10 segundos para reconectar ao roteador após alterar a SSID..."
+        sleep 10
+
+        # Verifica a conectividade com o roteador
+        ping -c 4 $IP_ROUTER > /dev/null
+
+        if [ $? -ne 0 ]; then
+            echo "Falha ao se reconectar ao roteador. Verifique a conexão Wi-Fi e tente novamente."
+            exit 1
+        fi
+    else
+        echo "SSID da interface $INTERFACE já está configurado como '$SSID_NAME'"
     fi
-fi
+}
+
+# Altera o SSID para as redes 2.4Ghz e 5Ghz
+alterar_ssid "radio0" "5G" # Geralmente 5GHz
+alterar_ssid "radio1" "2.4G" # Geralmente 2.4GHz
 
 # Clonando projeto
 echo "Clonando projeto..."
