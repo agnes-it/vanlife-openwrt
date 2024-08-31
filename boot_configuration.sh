@@ -24,13 +24,13 @@ alterar_ssid() {
     local INTERFACE=$1
     local SSID_SUFFIX=$2
 
-    SSID_NAME="$SSID_NAME $SSID_SUFFIX"
+    local SSID_NAME_TEMP="$SSID_NAME $SSID_SUFFIX"
 
     local SSID_ATUAL=$(ssh root@$IP_ROUTER "uci get wireless.$INTERFACE.ssid")
 
-    if [ "$SSID_ATUAL" != "$SSID_NAME" ]; then
-        echo "Alterando SSID da interface $INTERFACE de '$SSID_ATUAL' para '$SSID_NAME'"
-        ssh root@$IP_ROUTER "uci set wireless.$INTERFACE.ssid='$SSID_NAME'"
+    if [ "$SSID_ATUAL" != "$SSID_NAME_TEMP" ]; then
+        echo "Alterando SSID da interface $INTERFACE de '$SSID_ATUAL' para '$SSID_NAME_TEMP'"
+        ssh root@$IP_ROUTER "uci set wireless.$INTERFACE.ssid='$SSID_NAME_TEMP'"
         ssh root@$IP_ROUTER "uci commit wireless"
         ssh root@$IP_ROUTER "wifi"
 
@@ -46,7 +46,7 @@ alterar_ssid() {
             exit 1
         fi
     else
-        echo "SSID da interface $INTERFACE já está configurado como '$SSID_NAME'"
+        echo "SSID da interface $INTERFACE já está configurado como '$SSID_NAME_TEMP'"
     fi
 }
 
