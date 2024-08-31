@@ -51,11 +51,12 @@ alterar_ssid() {
 }
 
 # Altera o SSID para as redes 2.4Ghz e 5Ghz
-alterar_ssid "radio0" "5G" # Geralmente 5GHz
-alterar_ssid "radio1" "2.4G" # Geralmente 2.4GHz
+alterar_ssid "@wifi-iface[0]"  "5G" # Geralmente 5GHz
+alterar_ssid "@wifi-iface[1]" "2.4G" # Geralmente 2.4GHz
 
 # Clonando projeto
 echo "Clonando projeto..."
+ssh_router "rm -rf /root/vanlife-openwrt"
 ssh_router "rm -rf /www"
 ssh_router "git clone https://github.com/agnes-it/vanlife-openwrt.git"
 ssh_router "ln -sf /root/vanlife-openwrt/www /www"
