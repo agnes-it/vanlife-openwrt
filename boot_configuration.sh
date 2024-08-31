@@ -31,13 +31,10 @@ alterar_ssid() {
     if [ "$SSID_ATUAL" != "$SSID_NAME_TEMP" ]; then
         echo "Alterando SSID da interface $INTERFACE de '$SSID_ATUAL' para '$SSID_NAME_TEMP'"
         ssh root@$IP_ROUTER "uci set wireless.$INTERFACE.ssid='$SSID_NAME_TEMP'"
-        ssh root@$IP_ROUTER "uci commit wireless"
-        ssh root@$IP_ROUTER "wifi"
-
-        echo "Rede reiniciada. Aguarde 10 segundos... Reconecte a wifi e rode o script novamente."
-        exit 0
+	return 0
     else
         echo "SSID da interface $INTERFACE já está configurado como '$SSID_NAME_TEMP'"
+	return 1
     fi
 }
 
@@ -45,10 +42,20 @@ alterar_ssid() {
 alterar_ssid "@wifi-iface[0]"  "5G" # Geralmente 5GHz
 alterar_ssid "@wifi-iface[1]" "2.4G" # Geralmente 2.4GHz
 
-
 # Altera o SSID para as redes guest 2.4Ghz e 5Ghz
 alterar_ssid "@wifi-iface[2]" "Guest 5G"
 alterar_ssid "@wifi-iface[3]" "Guest 2.4G"
+
+RESULT=$?
+if [ $RESULT == 0 ]; then
+    # aplicando 1 vez
+    echo "Rede será reiniciada. Aguarde o comando terminar... Reconecte a wifi com o novo nome e rode o comando novamente."
+
+    ssh root@$IP_ROUTER "uci commit wireless"
+    ssh root@$IP_ROUTER "wifi"
+
+    exit 0
+fi
 
 # Clonando projeto
 echo "Clonando projeto..."
