@@ -659,7 +659,7 @@
   line-height: 1.2;
 }
 .active {
-  color: #22f4bb !important;
+  color: #51a8b1 !important;
 }
 .waiting {
   color: #FFCC33 !important;
@@ -877,8 +877,8 @@
   height: 50px;
   padding: 14px 10px 15px 13px;
   border-radius: 10px;
-  border: 1px solid #22f4bb;
-  background-color: #22f4bb;
+  border: 1px solid #51a8b1;
+  background-color: #51a8b1;
 }
 #router-pic {
   width: 250px;
@@ -1259,7 +1259,7 @@
   width: 120px;
   height: 70px;
   border-radius: 15px;
-  border: 0 solid #22f4bb;
+  border: 0 solid #51a8b1;
   background-size: 220px\0;
 }
 
