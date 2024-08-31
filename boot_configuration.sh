@@ -34,17 +34,8 @@ alterar_ssid() {
         ssh root@$IP_ROUTER "uci commit wireless"
         ssh root@$IP_ROUTER "wifi"
 
-        # Pausa para reconectar ao roteador após a alteração da SSID
-        echo "Esperando 10 segundos para reconectar ao roteador após alterar a SSID..."
-        sleep 10
-
-        # Verifica a conectividade com o roteador
-        ping -c 4 $IP_ROUTER > /dev/null
-
-        if [ $? -ne 0 ]; then
-            echo "Falha ao se reconectar ao roteador. Verifique a conexão Wi-Fi e tente novamente."
-            exit 1
-        fi
+        echo "Rede reiniciada. Aguarde 10 segundos... Reconecte a wifi e rode o script novamente."
+        exit 0
     else
         echo "SSID da interface $INTERFACE já está configurado como '$SSID_NAME_TEMP'"
     fi
@@ -53,6 +44,11 @@ alterar_ssid() {
 # Altera o SSID para as redes 2.4Ghz e 5Ghz
 alterar_ssid "@wifi-iface[0]"  "5G" # Geralmente 5GHz
 alterar_ssid "@wifi-iface[1]" "2.4G" # Geralmente 2.4GHz
+
+
+# Altera o SSID para as redes guest 2.4Ghz e 5Ghz
+alterar_ssid "@wifi-iface[2]" "Guest 5G"
+alterar_ssid "@wifi-iface[3]" "Guest 2.4G"
 
 # Clonando projeto
 echo "Clonando projeto..."
