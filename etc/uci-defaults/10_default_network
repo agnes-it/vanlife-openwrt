@@ -1,0 +1,36 @@
+#!/bin/sh
+. /lib/functions/gl_util.sh
+
+mac=$(get_ssid_suffix)
+SSID_NAME="vanlife-$mac :)"
+
+alterar_ssid() {
+    local INTERFACE=$1
+    local SSID_SUFFIX=$2
+
+    local SSID_NAME_TEMP="$SSID_NAME $SSID_SUFFIX"
+
+    local SSID_ATUAL=$(uci get wireless.$INTERFACE.ssid)
+
+    if [ "$SSID_ATUAL" != "$SSID_NAME_TEMP" ]; then
+        uci set wireless.$INTERFACE.ssid="$SSID_NAME_TEMP"
+	uci set wireless.@wifi-iface[$index].encryption=psk2
+	uci set wireless.@wifi-iface[$index].key=goodlife
+	uci set wireless.@wifi-iface[$index].disassoc_low_ack=0
+
+	return 0
+    else
+	return 1
+    fi
+}
+
+# Altera o SSID para as redes 2.4Ghz e 5Ghz
+alterar_ssid "@wifi-iface[0]"  "5G" # Geralmente 5GHz
+alterar_ssid "@wifi-iface[1]" "2.4G" # Geralmente 2.4GHz
+
+# Altera o SSID para as redes guest 2.4Ghz e 5Ghz
+alterar_ssid "@wifi-iface[2]" "Guest 5G"
+alterar_ssid "@wifi-iface[3]" "Guest 2.4G"
+
+uci commit wireless
+wifi
