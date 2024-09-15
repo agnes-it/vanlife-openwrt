@@ -105,6 +105,10 @@ define(["text!temple/index/index.html", "component/gl-btn/index", "vue", "Cookie
             getaps: function getaps() {
                 return this.$store.getters.apiData["getaps"];
             },
+            cableImg: function cableImg() {
+                const wanInfo = this.$store.getters.apiData["waninfo"];
+                return wanInfo.success && wanInfo.ip ? 'staron.png' : 'staroff.png';
+            },
             getWifiList: function getWifiList() {
                 if (this.getaps && this.getaps.success) {
                     var radios = [];

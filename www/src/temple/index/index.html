@@ -441,7 +441,9 @@
                                         @click="routerPush('internet')">
                                         <span
                                             class="import-txt clsStaSSID hidden-sm hidden-xs" style="padding-top: 5px">Starlink {{t($lang.index.cable)}}</span>
-                                        <img src="staron.png" style="width: 41px;transform: translateY(-4px);display: inline-block;"/>
+                                        <img
+                                            :src="cableImg"
+                                            style="width: 41px;transform: translateY(-4px);display: inline-block;"/>
                                     </div>
                                     <div class="float import-opt clsStaInfo"
                                         :id="isN300icon?'n300-icon':isAp1300icon?'ap1300-icon':'wan-icon'"
